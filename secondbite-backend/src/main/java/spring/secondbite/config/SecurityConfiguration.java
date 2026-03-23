@@ -1,6 +1,10 @@
 package spring.secondbite.config;
 
-import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +22,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import io.jsonwebtoken.security.Keys;
 import spring.secondbite.security.JwtAuthenticationEntryPoint;
 import spring.secondbite.security.JwtCustomAuthenticationFilter;
-
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -63,10 +65,10 @@ public class SecurityConfiguration {
         return new GrantedAuthorityDefaults("");
     }
 
-    @Bean
-    public SecretKey jwtSecretKey(@Value("${jwt.secret}") String secret) {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-    }
+@Bean
+public SecretKey jwtSecretKey(@Value("${jwt.secret}") String secret) {
+    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+}
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
