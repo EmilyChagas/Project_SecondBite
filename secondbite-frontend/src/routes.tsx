@@ -10,6 +10,7 @@ import { RootMarketerLayout } from './pages/RootMarketerLayout';
 import MarketerProfile from './pages/marketer/MarketerProfile';
 import UpdateLocation from './pages/marketer/UpdateLocation';
 import { ErrorElement } from './pages/Error';
+import Search from './pages/consumer/Search';
 
 const Login = lazy(() => import('./pages/auth/Login'));
 
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'buscar',
-        element: <div />,
+        element: <Search />,
         loader: createAuthLoader(['CONSUMER']),
       },
       {
