@@ -12,6 +12,10 @@ import java.util.UUID;
 public interface ProductMapper {
 
     @Mapping(target = "marketer", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "images", ignore = true)
     Product toEntity(ProductDto dto);
 
     @Mapping(target = "marketerId", source = "marketer.id")
@@ -32,5 +36,9 @@ public interface ProductMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "marketer", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "images", ignore = true)
     void updateFromDto(ProductDto dto, @MappingTarget Product product);
 }

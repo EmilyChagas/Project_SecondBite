@@ -36,6 +36,7 @@ public class ConsumerService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public ConsumerResponseDto updateConsumer(UUID id, UpdateConsumerDto dto) {
         Consumer consumerEntity = findOptionalConsumer(id);
         Consumer consumer = mapper.partialUpdateConsumerFromDto(dto, consumerEntity);
@@ -45,6 +46,7 @@ public class ConsumerService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public ConsumerResponseDto deleteConsumer(UUID id) {
         Consumer consumer = findOptionalConsumer(id);
         repository.delete(consumer);
@@ -56,6 +58,7 @@ public class ConsumerService {
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
     }
 
+    @SuppressWarnings("null")
     public Consumer findOptionalConsumer(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));

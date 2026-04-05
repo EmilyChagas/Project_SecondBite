@@ -1,6 +1,6 @@
 package spring.secondbite.dtos.marketers;
 
-import jakarta.validation.constraints.Size;
+
 import spring.secondbite.entities.enums.Role;
 
 import java.time.LocalDateTime;

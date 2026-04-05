@@ -1,6 +1,6 @@
 import { useProducts } from '../../../../hooks/queries/useProducts';
 import type { ProductCategory } from '../../../../interfaces/products';
-import { RelatedItem } from './RelatedItem';
+import { ShopItem } from './ShopItem';
 
 interface RelatedProps {
   productId: string;
@@ -20,7 +20,7 @@ export const RelatedProducts = ({ productId, currentCategory }: RelatedProps) =>
       {filteredProducts.length > 0 ? (
         <ul className="flex gap-3 overflow-x-auto ml-4 pb-2 pr-4">
           {filteredProducts.map(product => (
-            <RelatedItem key={product?.id} {...product!} />
+            <ShopItem key={product?.id} isGrid={false} {...product!} />
           ))}
         </ul>
       ) : (

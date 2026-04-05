@@ -15,14 +15,11 @@ import spring.secondbite.entities.Marketer;
 import spring.secondbite.exceptions.UserNotFoundException;
 import spring.secondbite.mappers.MarketerMapper;
 import spring.secondbite.repositories.MarketerRepository;
-import spring.secondbite.security.SecurityService;
-
 @Service
 @RequiredArgsConstructor
 public class MarketerService {
 
     private final MarketerRepository repository;
-    private final SecurityService securityService;
 
     private final MarketerMapper mapper;
 
@@ -41,6 +38,7 @@ public class MarketerService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public MarketerResponseDto updateMarketer(UUID id, UpdateMarketerDto dto) {
         Marketer marketerEntity = findOptionalMarketer(id);
         Marketer marketer = mapper.partialUpdateMarketerFromDto(dto, marketerEntity);
@@ -50,6 +48,7 @@ public class MarketerService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public MarketerResponseDto deleteMarketer(UUID id) {
         Marketer marketer = findOptionalMarketer(id);
         repository.delete(marketer);
@@ -61,6 +60,7 @@ public class MarketerService {
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
     }
 
+    @SuppressWarnings("null")
     public Marketer findOptionalMarketer(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));

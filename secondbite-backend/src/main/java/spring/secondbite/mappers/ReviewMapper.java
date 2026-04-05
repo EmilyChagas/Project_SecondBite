@@ -11,6 +11,8 @@ public interface ReviewMapper {
 
     @Mapping(target = "consumer", ignore = true)
     @Mapping(target = "marketer", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     Review toEntity(ReviewDto dto);
 
     @Mapping(target = "consumerName", source = "consumer.user.name")

@@ -17,6 +17,7 @@ public abstract class MarketerMapper {
     PasswordEncoder encoder;
 
     @Mapping(target = "user", expression = "java(toAppUser(dto))")
+    @Mapping(target = "operatingSchedule", ignore = true)
     public abstract Marketer toEntity(MarketerDto dto);
 
     @Mapping(target = "name", source = "user.name")
@@ -30,6 +31,7 @@ public abstract class MarketerMapper {
     @Mapping(target = "user.name", source = "name")
     @Mapping(target = "user.email", source = "email")
     @Mapping(target = "user.password", source = "password")
+    @Mapping(target = "operatingSchedule", ignore = true)
     public abstract void updateMarketerFromDto(MarketerDto dto, @MappingTarget Marketer entity);
 
     public Marketer partialUpdateMarketerFromDto(UpdateMarketerDto dto, Marketer marketer) {

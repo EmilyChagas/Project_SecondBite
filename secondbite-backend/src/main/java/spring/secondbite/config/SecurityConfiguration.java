@@ -1,6 +1,8 @@
 package spring.secondbite.config;
 
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.crypto.SecretKey;
@@ -47,6 +49,7 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/consumers/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/marketers/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/files/**").permitAll()
                     .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -67,13 +70,19 @@ public class SecurityConfiguration {
 
 @Bean
 public SecretKey jwtSecretKey(@Value("${jwt.secret}") String secret) {
-    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    try {
+        byte[] keyBytes = MessageDigest.getInstance("SHA-256")
+                .digest(secret.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(keyBytes);
+    } catch (NoSuchAlgorithmException e) {
+        throw new IllegalStateException("SHA-256 not available", e);
+    }
 }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

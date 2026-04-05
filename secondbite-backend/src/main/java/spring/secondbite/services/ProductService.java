@@ -104,6 +104,7 @@ public class ProductService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public ProductResponseDto updateProduct(UUID productId, ProductDto dto, List<MultipartFile> imageFiles) {
         Product existingProduct = findProductOrThrow(productId);
         checkProductIsFromMarketer(existingProduct);
@@ -122,6 +123,7 @@ public class ProductService {
     }
 
     @Transactional
+    @SuppressWarnings("null")
     public void deleteProduct(UUID id) {
         Product product = findProductOrThrow(id);
         checkProductIsFromMarketer(product);
@@ -135,6 +137,7 @@ public class ProductService {
             throw new NotAllowedException("Ação não permitida: O produto não lhe pertence.");
     }
 
+    @SuppressWarnings("null")
     public Product findProductOrThrow(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Produto não encontrado."));

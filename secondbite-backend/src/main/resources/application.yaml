@@ -5,21 +5,20 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/secondbite 
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5435/secondbite}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
     hibernate:
       ddl-auto: update
-    #      ddl-auto: none
     properties:
       hibernate.format_sql: true
 
 jwt:
-  secret: ${JWT_SECRET_KEY}
+  secret: ${JWT_SECRET_KEY:minhasenhagigantecommaisde32caracteresextrasparapassar256bits12345}
 
 app:
   image:
-    upload-dir: ${FILE_PATH}
+    upload-dir: ${FILE_PATH:C:/Users/emyvi/Documents/SecondBite/uploads}
