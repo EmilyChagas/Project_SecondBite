@@ -2,6 +2,8 @@ import { Link } from 'react-router';
 import type { Product } from '../../../../interfaces/products';
 import { currencyFormatter } from '../../../../utils/formatting';
 import { PlusIcon } from '../../../icons/PlusIcon';
+import { useAddToCart } from '../../../../hooks/mutations/useAddToCart';
+import { Spinner } from '../../../ui/Spinner';
 import { imgUrl } from '../../../../libs/axios';
 import { Button } from '../../../ui/Button';
 
@@ -21,11 +23,17 @@ export const ShopItem = ({
   images,
   isGrid,
 }: ShopItemProps) => {
+  const { mutate, isPending } = useAddToCart();
+
   function handleAddToCart() {
-    //
+    mutate({ productId: id });
   }
 
-  const imageUrl = images.length ? (images[0].startsWith('http') ? images[0] : imgUrl + images[0]) : '/placeholder-food.png';
+  const imageUrl = images.length
+    ? images[0].startsWith('http')
+      ? images[0]
+      : imgUrl + images[0]
+    : '/placeholder-food.png';
 
   return (
     <li
@@ -70,11 +78,16 @@ export const ShopItem = ({
 
         <Button
           onClick={handleAddToCart}
+          disabled={isPending}
           roleButton="bg-consumer"
           className={`absolute ${isGrid ? 'bottom-31' : 'bottom-2'} right-2 px-2.5 py-2.5 text-white rounded-xl transition-colors active:scale-95 flex items-center justify-center`}
           aria-label="Adicionar ao carrinho"
         >
-          <PlusIcon className="size-5" />
+          {isPending ? (
+            <Spinner className="size-5 border-current border-t-transparent" />
+          ) : (
+            <PlusIcon className="size-5" />
+          )}
         </Button>
       </div>
     </li>

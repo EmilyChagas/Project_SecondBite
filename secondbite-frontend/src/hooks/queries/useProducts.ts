@@ -28,7 +28,7 @@ export const useProducts = ({ category, search }: GetProductsParams) => {
 };
 
 export const useProduct = ({ id, enabled = true }: { id: string; enabled?: boolean }) => {
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isPending, isError, error } = useQuery({
     queryKey: ['products', { id }],
     retry: 2,
     queryFn: ({ signal }) => getProductId({ id, signal }),
@@ -36,5 +36,5 @@ export const useProduct = ({ id, enabled = true }: { id: string; enabled?: boole
     enabled: enabled && !!id && id !== 'novo',
   });
 
-  return { data, isPending, isError, error };
+  return { data, isPending, isLoading, isError, error };
 };

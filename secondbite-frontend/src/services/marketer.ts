@@ -4,6 +4,7 @@ import { axiosInstance } from '../libs/axios';
 import { CustomError } from '../utils/CustomError';
 import axios from 'axios';
 import type { UpdateMarketerType } from '../schemas/updateSchema';
+import type { MarketerDashboard } from '../interfaces/dashboard';
 
 export const getMarketerById = async (id: string) => {
   try {
@@ -17,6 +18,15 @@ export const getMarketerById = async (id: string) => {
 export const getMarketersLocations = async () => {
   try {
     const response: AxiosResponse<Marketer[]> = await axiosInstance.get('marketers/map-locations');
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+  }
+};
+
+export const getMarketerDashboard = async () => {
+  try {
+    const response: AxiosResponse<MarketerDashboard> = await axiosInstance.get('/marketers/dashboard');
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);

@@ -11,6 +11,8 @@ import MarketerProfile from './pages/marketer/MarketerProfile';
 import UpdateLocation from './pages/marketer/UpdateLocation';
 import { ErrorElement } from './pages/Error';
 import Search from './pages/consumer/Search';
+import MarketerDetails from './pages/consumer/MarketerDetails';
+import Product from './pages/consumer/Product';
 
 const Login = lazy(() => import('./pages/auth/Login'));
 
@@ -33,12 +35,12 @@ export const router = createBrowserRouter([
       {
         path: 'produtos/:id',
         loader: createAuthLoader(['CONSUMER']),
-        element: <div />,
+        element: <Product />,
       },
       {
         path: 'feirante/:id',
         loader: createAuthLoader(['CONSUMER']),
-        element: <div />,
+        element: <MarketerDetails />,
       },
       {
         path: 'carrinho',

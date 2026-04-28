@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ShopContainer from '../../components/consumer/search/shop/ShopContainer';
 import { OrangeIcon } from '../../components/icons/OrangeIcon';
+import { MarketersMap } from '../../components/consumer/search/MarketersMap';
 import { StoreFilledIcon } from '../../components/icons/StoreFilledIcon';
 
 const Search = () => {
@@ -25,7 +26,7 @@ const Search = () => {
         </button>
       </div>
       {activeTab === 'produtos' && <ShopContainer />}
-      {activeTab === 'feirantes' && <div />}
+      {activeTab === 'feirantes' && <MarketersMap />}
     </div>
   );
 };
