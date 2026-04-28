@@ -11,6 +11,7 @@ export const postLogin = async ({ email, password }: BodyLogin) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+    throw error;
   }
 };
 
@@ -25,6 +26,7 @@ export const getCheckAuth = async (allowedRoles?: string[]) => {
     return { user, isAllowed };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+    throw error;
   }
 };
 
@@ -35,6 +37,7 @@ export const logout = async () => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+    throw error;
   }
 };
 
@@ -44,6 +47,7 @@ export const registerConsumer = async (payload: Omit<ConsumerRegisterType, 'conf
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+    throw error;
   }
 };
 
@@ -53,5 +57,6 @@ export const registerMarketer = async (payload: Omit<MarketerRegisterType, 'conf
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) throw new CustomError(error.response?.data.message, error.response?.status);
+    throw error;
   }
 };

@@ -13,7 +13,11 @@ export const MarketerProductItem = ({ id, price, name, sizeType, images }: Produ
     mutate({ productId: id });
   }
 
-  const imageUrl = images.length ? imgUrl + images[0] : '/placeholder-food.png';
+  const imageUrl = images.length
+    ? images[0].startsWith('http')
+      ? images[0]
+      : imgUrl + images[0]
+    : '/placeholder-food.png';
 
   return (
     <li
