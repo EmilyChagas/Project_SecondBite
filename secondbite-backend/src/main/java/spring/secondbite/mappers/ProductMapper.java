@@ -1,6 +1,7 @@
 package spring.secondbite.mappers;
 
 import org.mapstruct.*;
+import spring.secondbite.dtos.products.CloneProductDto;
 import spring.secondbite.dtos.products.ProductDetailResponseDto;
 import spring.secondbite.dtos.products.ProductDto;
 import spring.secondbite.dtos.products.ProductResponseDto;
@@ -12,10 +13,6 @@ import java.util.UUID;
 public interface ProductMapper {
 
     @Mapping(target = "marketer", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "modifiedAt", ignore = true)
-    @Mapping(target = "images", ignore = true)
     Product toEntity(ProductDto dto);
 
     @Mapping(target = "marketerId", source = "marketer.id")
@@ -34,11 +31,18 @@ public interface ProductMapper {
             ProductResponseDto productDto, UUID marketerId,
             String marketerName, String stallName, Double marketerRating);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "marketer", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "modifiedAt", ignore = true)
-    @Mapping(target = "images", ignore = true)
+    @Mapping(target = "marketer", ignore = true)
+    @Mapping(target = "validation", source = "dto.validation")
+    @Mapping(target = "price", source = "dto.price")
+    @Mapping(target = "quantity", source = "dto.quantity")
+    @Mapping(target = "isAutoDiscount", constant = "true")
+    @Mapping(target = "manualDiscountPercentage", ignore = true)
+    Product cloneEntity(Product original, CloneProductDto dto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "marketer", ignore = true)
     void updateFromDto(ProductDto dto, @MappingTarget Product product);
 }

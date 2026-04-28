@@ -1,6 +1,5 @@
 package spring.secondbite.dtos.marketers;
 
-
 import spring.secondbite.entities.enums.Role;
 
 import java.time.LocalDateTime;

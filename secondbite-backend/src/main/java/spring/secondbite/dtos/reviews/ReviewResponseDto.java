@@ -6,7 +6,9 @@ import java.util.UUID;
 public record ReviewResponseDto(
         UUID id,
         String consumerName,
+        UUID consumerId,
         Integer rating,
         String comment,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        LocalDateTime modifiedAt
 ) {}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.secondbite.dtos.PageResponseDto;
 import spring.secondbite.dtos.reviews.ReviewDto;
 import spring.secondbite.dtos.reviews.ReviewResponseDto;
+import spring.secondbite.dtos.reviews.UpdateReviewDto;
 import spring.secondbite.services.ReviewService;
 
 import java.util.UUID;
@@ -47,5 +48,22 @@ public class ReviewController {
     public ResponseEntity<Double> getAverageRating(@PathVariable UUID marketerId) {
         Double averageRating = service.getAverageRating(marketerId);
         return ResponseEntity.ok(averageRating);
+    }
+
+    @PutMapping("/{reviewId}")
+    @PreAuthorize("hasRole('CONSUMER')")
+    public ResponseEntity<ReviewResponseDto> updateReview(
+            @PathVariable UUID reviewId,
+            @RequestBody @Valid UpdateReviewDto dto
+    ) {
+        ReviewResponseDto updatedReview = service.updateReview(reviewId, dto);
+        return ResponseEntity.ok(updatedReview);
+    }
+
+    @DeleteMapping("/{reviewId}")
+    @PreAuthorize("hasRole('CONSUMER')")
+    public ResponseEntity<Void> deleteReview(@PathVariable UUID reviewId) {
+        service.deleteReview(reviewId);
+        return ResponseEntity.noContent().build();
     }
 }

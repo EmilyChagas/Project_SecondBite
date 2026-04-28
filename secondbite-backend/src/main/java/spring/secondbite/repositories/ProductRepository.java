@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, UUID>, JpaSpecificationExecutor<Product> {
-    List<Product> findAllByMarketer(Marketer marketer);
+    List<Product> findAllByMarketerOrderByCreatedAtDesc(Marketer marketer);
 
     long countByMarketerIdAndQuantityGreaterThan(UUID marketerId, Integer quantity);
 
@@ -24,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID>, JpaSpec
             @Param("thresholdDate") LocalDate thresholdDate
     );
 
-    @Query("SELECT p FROM Product p WHERE p.marketer.id = :marketerId AND p.quantity > 0 AND p.validation <= :thresholdDate")
+    @Query("SELECT p FROM Product p WHERE p.marketer.id = :marketerId AND p.quantity > 0 AND p.validation <= :thresholdDate ORDER BY p.createdAt DESC")
     List<Product> findExpiringSoonProducts(
             @Param("marketerId") UUID marketerId,
             @Param("thresholdDate") LocalDate thresholdDate

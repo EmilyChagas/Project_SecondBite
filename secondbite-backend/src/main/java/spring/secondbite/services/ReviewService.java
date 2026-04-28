@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import spring.secondbite.dtos.PageResponseDto;
 import spring.secondbite.dtos.reviews.ReviewDto;
 import spring.secondbite.dtos.reviews.ReviewResponseDto;
+import spring.secondbite.dtos.reviews.UpdateReviewDto;
 import spring.secondbite.entities.AppUser;
 import spring.secondbite.entities.Consumer;
 import spring.secondbite.entities.Marketer;
 import spring.secondbite.entities.Review;
 import spring.secondbite.exceptions.ConflictException;
+import spring.secondbite.exceptions.NotAllowedException;
+import spring.secondbite.exceptions.NotFoundException;
 import spring.secondbite.mappers.ReviewMapper;
 import spring.secondbite.repositories.ReviewRepository;
 import spring.secondbite.security.SecurityService;
@@ -64,6 +67,37 @@ public class ReviewService {
                 page.isLast(),
                 content
         );
+    }
+
+    @Transactional
+    public ReviewResponseDto updateReview(UUID reviewId, UpdateReviewDto dto) {
+        AppUser user = securityService.getLoggedUserOrThrow();
+        Consumer consumer = consumerService.findConsumerByUser(user);
+
+        Review review = repository.findById(reviewId)
+                .orElseThrow(() -> new NotFoundException("Avaliação não encontrada."));
+
+        if (!review.getConsumer().getId().equals(consumer.getId()))
+            throw new NotAllowedException("Você só tem permissão para editar as suas próprias avaliações.");
+
+        review.setRating(dto.rating());
+        review.setComment(dto.comment());
+
+        Review updatedReview = repository.save(review);
+        return mapper.toDto(updatedReview);
+    }
+
+    @Transactional
+    public void deleteReview(UUID reviewId) {
+        AppUser user = securityService.getLoggedUserOrThrow();
+        Consumer consumer = consumerService.findConsumerByUser(user);
+
+        Review review = repository.findById(reviewId)
+                .orElseThrow(() -> new NotFoundException("Avaliação não encontrada."));
+
+        if (!review.getConsumer().getId().equals(consumer.getId()))
+            throw new NotAllowedException("Você só tem permissão para excluir as suas próprias avaliações.");
+        repository.delete(review);
     }
 
     public Double getAverageRating(UUID marketerId) {

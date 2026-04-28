@@ -9,12 +9,13 @@ import spring.secondbite.entities.Review;
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "consumer", ignore = true)
     @Mapping(target = "marketer", ignore = true)
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     Review toEntity(ReviewDto dto);
 
     @Mapping(target = "consumerName", source = "consumer.user.name")
+    @Mapping(target = "consumerId", source = "consumer.id")
     ReviewResponseDto toDto(Review review);
 }

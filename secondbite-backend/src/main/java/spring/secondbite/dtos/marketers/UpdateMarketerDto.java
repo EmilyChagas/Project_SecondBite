@@ -1,7 +1,6 @@
 package spring.secondbite.dtos.marketers;
 
 import jakarta.validation.constraints.Email;
-
 import jakarta.validation.constraints.Size;
 
 public record UpdateMarketerDto(
