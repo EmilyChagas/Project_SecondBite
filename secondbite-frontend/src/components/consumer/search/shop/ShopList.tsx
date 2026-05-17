@@ -5,24 +5,28 @@ import { RowsIcon } from '../../../icons/RowsIcon';
 interface ProductListProps {
   children: ReactNode;
   isGrid: boolean;
+  isMarketerRole?: boolean;
   onChangeView: (val: boolean) => void;
 }
 
-export const ShopList = ({ children, isGrid, onChangeView }: ProductListProps) => {
+export const ShopList = ({ children, isGrid, isMarketerRole, onChangeView }: ProductListProps) => {
+  let styles = 'bg-consumer/10 text-consumer';
+  if (isMarketerRole) styles = 'bg-marketer/10 text-marketer';
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-bold text-gray-800 text-lg">Ofertas Disponíveis</h2>
+        <h2 className="font-bold text-gray-800 text-lg">{isMarketerRole ? 'Produtos' : 'Ofertas'} Disponíveis</h2>
         <div className="flex items-center gap-2 bg-white p-1 rounded-lg shadow-sm border border-gray-100">
           <button
             onClick={() => onChangeView(true)}
-            className={`p-1.5 cursor-pointer rounded-md ${isGrid ? 'bg-consumer/10 text-consumer' : 'text-gray-600'}`}
+            className={`p-1.5 cursor-pointer rounded-md ${isGrid ? styles : 'text-gray-600'}`}
           >
             <GridIcon />
           </button>
           <button
             onClick={() => onChangeView(false)}
-            className={`p-1.5 cursor-pointer rounded-md ${!isGrid ? 'bg-consumer/10 text-consumer' : 'text-gray-600'}`}
+            className={`p-1.5 cursor-pointer rounded-md ${!isGrid ? styles : 'text-gray-600'}`}
           >
             <RowsIcon />
           </button>

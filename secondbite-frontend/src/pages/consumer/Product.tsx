@@ -10,6 +10,11 @@ import { imgUrl } from '../../libs/axios';
 import { Spinner } from '../../components/ui/Spinner';
 import { PackageIcon } from '../../components/icons/PackageIcon';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 const Product = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -21,32 +26,41 @@ const Product = () => {
   if (isPending || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Spinner className="size-8 text-consumer" />
+        <Spinner className="size-8 text-consumer border-t-transparent" />
       </div>
     );
   }
 
-  const imageUrl = product.images.length
-    ? product.images[0].startsWith('http')
-      ? product.images[0]
-      : imgUrl + product.images[0]
-    : '/placeholder-food.png';
+  const imagesList =
+    product.images.length > 0
+      ? product.images.map(img => (img.startsWith('http') ? img : imgUrl + img))
+      : ['/placeholder-food.png'];
 
   return (
     <article className="bg-gray-50 min-h-screen pb-24">
       <div className="relative w-full aspect-4/3 lg:aspect-4/2 bg-gray-200 overflow-clip">
-        <img src={imageUrl} alt={product.name} className="object-cover w-full h-full" />
-
         <button
           onClick={() => navigate(-1)}
-          className="absolute cursor-pointer top-4 left-4 z-10 bg-black/30 backdrop-blur-md p-2 rounded-full active:bg-black/50 transition-colors"
+          className="absolute cursor-pointer top-4 left-4 z-20 bg-black/30 backdrop-blur-md p-2 rounded-full active:bg-black/50 transition-colors"
           aria-label="Voltar"
         >
           <CaretLeftIcon className="text-white size-6" />
         </button>
+        <Swiper
+          modules={[Pagination]}
+          pagination={{ clickable: true }}
+          spaceBetween={0}
+          slidesPerView={1}
+          className="w-full h-full swiper-consumer"
+        >
+          {imagesList.map((imgSrc, index) => (
+            <SwiperSlide key={index}>
+              <img src={imgSrc} alt={`${product.name} - Imagem ${index + 1}`} className="object-cover w-full h-full" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
-
-      <div className="bg-white rounded-t-3xl relative z-10 px-5 pt-8 pb-6">
+      <div className="bg-white rounded-t-3xl relative z-10 px-5 pt-8 pb-6 -mt-6 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
         <div className="flex justify-between items-start gap-4 mb-2">
           <h1 className="font-bold text-2xl text-gray-900 leading-tight">{product.name}</h1>
           {product.discountPercentage > 0 && (

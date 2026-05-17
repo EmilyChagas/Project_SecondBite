@@ -173,9 +173,9 @@ export const ConsumerSignUpForm = () => {
           <input
             id="confirmPassword"
             placeholder="Confirme a sua senha"
-            autoComplete={`${passwordIsVisible ? '' : 'current-password'}`}
+            autoComplete={`${confirmPasswordIsVisible ? '' : 'current-password'}`}
             {...register('confirmPassword')}
-            type={`${passwordIsVisible ? 'text' : 'password'}`}
+            type={`${confirmPasswordIsVisible ? 'text' : 'password'}`}
             className={`px-3 py-4 w-full text-primary rounded-xl border border-primary/20 disabled:bg-gray-100 disabled:border-none pl-12 ${
               errors.confirmPassword
                 ? 'is-invalid focus-visible:outline focus:outline-red-700'

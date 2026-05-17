@@ -16,7 +16,9 @@ export const RelatedProducts = ({ productId, currentCategory }: RelatedProps) =>
 
   return (
     <section className="pb-32">
-      <h2 className="mb-4 padding-x font-semibold text-xl">Produtos Relacionados</h2>
+      <h2 className="mb-4 padding-x font-semibold text-sm text-primary uppercase tracking-wide">
+        Produtos Relacionados
+      </h2>
       {filteredProducts.length > 0 ? (
         <ul className="flex gap-3 overflow-x-auto ml-4 pb-2 pr-4">
           {filteredProducts.map(product => (

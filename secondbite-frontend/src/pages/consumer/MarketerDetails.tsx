@@ -102,8 +102,8 @@ export default function MarketerDetails() {
       </div>
 
       {marketer.latitude && marketer.longitude && (
-        <div className="w-full px-4 my-4 py-4 border-t border-primary/10 text-left">
-          <h3 className="font-bold text-primary mb-2 flex items-center gap-1">
+        <div className="w-full px-4 my-4 py-4 border-t border-primary/10 text-left text-sm">
+          <h3 className="font-bold text-primary mb-3 flex items-center gap-1 uppercase tracking-wider">
             <MapPinIcon className="size-4" /> Localização
           </h3>
           <StaticMap latitude={marketer.latitude} longitude={marketer.longitude} />
@@ -111,7 +111,7 @@ export default function MarketerDetails() {
       )}
       <div className="px-4">
         <section className="mb-8">
-          <h3 className="font-bold text-lg mb-4 text-primary">Todos os Produtos</h3>
+          <h3 className="font-bold mb-4 text-primary text-sm uppercase tracking-wide">Todos os Produtos</h3>
           {productsError && (
             <div className="text-center py-10 bg-white rounded-2xl border border-gray-100">
               <p className="text-gray-500 font-medium">Não foi possível carregar os produtos.</p>
@@ -133,7 +133,7 @@ export default function MarketerDetails() {
         </section>
 
         <section id="avaliar">
-          <h3 className="font-bold text-lg mb-4 text-primary">Avaliações</h3>
+          <h3 className="font-bold mb-4 text-primary text-sm uppercase tracking-wide">Avaliações</h3>
 
           {!hasReviewed &&
             (!isWritingReview ? (

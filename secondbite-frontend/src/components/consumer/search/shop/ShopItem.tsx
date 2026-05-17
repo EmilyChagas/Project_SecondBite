@@ -34,7 +34,6 @@ export const ShopItem = ({
       ? images[0]
       : imgUrl + images[0]
     : '/placeholder-food.png';
-
   return (
     <li
       className={`bg-white rounded-2xl shadow-sm border border-gray-100 overflow-clip group sm:hover:shadow-md transition-all ${!isGrid && 'flex h-36'}`}

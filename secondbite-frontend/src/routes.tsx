@@ -13,6 +13,10 @@ import { ErrorElement } from './pages/Error';
 import Search from './pages/consumer/Search';
 import MarketerDetails from './pages/consumer/MarketerDetails';
 import Product from './pages/consumer/Product';
+import OrderDetails from './pages/consumer/OrderDetails';
+import Orders from './pages/consumer/Orders';
+import Cart from './pages/consumer/Cart';
+import Home from './pages/consumer/Home';
 
 const Login = lazy(() => import('./pages/auth/Login'));
 
@@ -25,7 +29,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div />,
+        element: <Home />,
       },
       {
         path: 'buscar',
@@ -44,18 +48,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'carrinho',
-        element: <div />,
+        element: <Cart />,
+
         loader: createAuthLoader(['CONSUMER']),
       },
       {
         path: 'pedidos',
         loader: createAuthLoader(['CONSUMER']),
-        element: <div />,
+        element: <Orders />,
       },
       {
         path: 'pedidos/:id',
         loader: createAuthLoader(['CONSUMER']),
-        element: <div />,
+        element: <OrderDetails />,
       },
       {
         path: 'perfil',

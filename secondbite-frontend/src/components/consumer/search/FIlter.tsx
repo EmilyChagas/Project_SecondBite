@@ -1,14 +1,6 @@
 import { useFilterStore } from '../../../store/filterStore';
 import type { ProductCategory } from '../../../interfaces/products';
-
-const CATEGORIES: { label: string; value: ProductCategory | null }[] = [
-  { label: 'Tudo', value: null },
-  { label: 'Frutas', value: 'FRUIT' },
-  { label: 'Vegetais', value: 'VEGETABLE' },
-  { label: 'Legumes', value: 'LEGUME' },
-  { label: 'Temperos', value: 'SEASONING' },
-  { label: 'Raízes', value: 'ROOT' },
-];
+import { CATEGORIES } from '../../../constants/tabs';
 
 export const CategoryFilter = () => {
   const currentCategory = useFilterStore(state => state.category);
